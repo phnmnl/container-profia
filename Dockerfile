@@ -1,17 +1,30 @@
 FROM ubuntu:16.04
+# TODO Try instead a lighter version (based on Alpine Linux):
+# FROM container-registry.phenomenal-h2020.eu/phnmnl/rbase
 
 # Some change to trigger Jenkins
 
 MAINTAINER Etienne Thevenot (etienne.thevenot@cea.fr)
 
+ENV TOOL_NAME=profia
 ENV TOOL_VERSION=3.1.0
 ENV CONTAINER_VERSION=1.0
+ENV CONTAINER_GITHUB=https://github.com/phnmnl/container-profia
 
 LABEL version="${CONTAINER_VERSION}"
-LABEL tool_version="${TOOL_VERSION}"
+LABEL software.version="${TOOL_VERSION}"
+LABEL software="${TOOL_NAME}"
+LABEL base.image="ubuntu:16.04"
+LABEL description=""
+LABEL website="${CONTAINER_GITHUB}"
+LABEL documentation="${CONTAINER_GITHUB}"
+LABEL license="${CONTAINER_GITHUB}"
+LABEL tags="Metabolomics"
+
+# TODO when all RUN statements are tested and working correctly, merge them all together using "&& \"
 
 # Update system
-RUN apt-get update
+RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends r-base git
 
 # Clone tool repos
